@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 /**
@@ -518,6 +518,39 @@ public class LinkedListTest {
 
         assertThatExceptionOfType(NullPointerException.class)
                 .isThrownBy(() -> getInternalElement(0));
+    }
+
+    @Test
+    @Order(43)
+    void reverse(){
+        addInternalElements(8, 2, 6, 1, 2);
+
+        intList.reverse();
+
+        assertThat(intList.getFirst()).isEqualTo(2);
+        assertThat(intList.getLast()).isEqualTo(8);
+        assertThat(intList.get(1)).isEqualTo(1);
+        assertThat(intList.get(2)).isEqualTo(6);
+        assertThat(intList.get(3)).isEqualTo(2);
+
+        intList.clear();
+        addInternalElements(1, 2, 3, 4);
+        intList.reverse();
+
+
+        assertThat(intList.getFirst()).isEqualTo(4);
+        assertThat(intList.getLast()).isEqualTo(1);
+        assertThat(intList.get(1)).isEqualTo(3);
+        assertThat(intList.get(2)).isEqualTo(2);
+
+        intList.clear();
+        addInternalElements(0, 4);
+        intList.reverse();
+
+        assertThat(intList.getFirst()).isEqualTo(4);
+        assertThat(intList.getLast()).isEqualTo(0);
+
+
     }
 
     @SneakyThrows
