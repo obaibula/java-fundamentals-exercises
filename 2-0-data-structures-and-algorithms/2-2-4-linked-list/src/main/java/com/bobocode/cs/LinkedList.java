@@ -249,7 +249,7 @@ public class LinkedList<T> implements List<T> {
 
 
        while (current != null){
-           Node<T> next = current.next;
+           var next = current.next;
            current.next = previous;
            previous = current;
            current = next;
