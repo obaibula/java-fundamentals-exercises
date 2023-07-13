@@ -1,9 +1,6 @@
 package com.bobocode.cs;
 
-import com.bobocode.util.ExerciseNotCompletedException;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
@@ -71,41 +68,46 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
 
     @Override
     public boolean insert(T element) {
+        // insert root
         if (root == null) {
             root = new Node<>(element);
             size++;
             return true;
         }
+
+        return insertElement(element);
+    }
+
+    private boolean insertElement(T element) {
         var currentNode = root;
-        Deque<Node<T>> stack = new ArrayDeque<>();
+        var previousNode = root;
 
         while (currentNode != null) {
-            if(element.compareTo(currentNode.element) == 0){
+            if (element.compareTo(currentNode.element) == 0) {
                 return false;
             }
 
-            if(element.compareTo(currentNode.element) > 0){
+            if (element.compareTo(currentNode.element) > 0) {
+                previousNode = currentNode;
                 currentNode = currentNode.right;
-                stack.addFirst(currentNode);
-            }else {
+            } else {
+                previousNode = currentNode;
                 currentNode = currentNode.left;
-                stack.addFirst(currentNode);
             }
         }
 
-        Node<T> place = stack.removeFirst();
         Node<T> newNode = new Node<>(element);
-        if (element.compareTo(place.element) > 0){
-            place.right = newNode;
+        if (element.compareTo(previousNode.element) > 0) {
+            previousNode.right = newNode;
         } else {
-            place.left =newNode;
+            previousNode.left = newNode;
         }
 
         size++;
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean contains(T element) {
         requireNonNull(element);
 
@@ -140,6 +142,27 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
         } else {
             return false;
         }
+    }*/
+
+    @Override
+    public boolean contains(T element) {
+        requireNonNull(element);
+        if (root == null) {
+            return false;
+        }
+
+        var currentNode = root;
+        while (currentNode != null) {
+            if (element.compareTo(currentNode.element) == 0) {
+                return true;
+            }
+
+            if (element.compareTo(currentNode.element) > 0) {
+                currentNode = currentNode.right;
+            } else currentNode = currentNode.left;
+        }
+
+        return false;
     }
 
     @Override
@@ -166,8 +189,8 @@ public class RecursiveBinarySearchTree<T extends Comparable<T>> implements Binar
         Deque<Node<T>> stack = new ArrayDeque<>();
         var currentNode = root;
 
-        while (currentNode != null || !stack.isEmpty()){
-            while (currentNode != null){
+        while (currentNode != null || !stack.isEmpty()) {
+            while (currentNode != null) {
                 stack.addFirst(currentNode);
                 currentNode = currentNode.left;
             }
