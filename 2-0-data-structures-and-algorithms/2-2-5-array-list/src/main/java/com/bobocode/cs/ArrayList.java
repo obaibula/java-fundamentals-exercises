@@ -12,6 +12,7 @@ import com.bobocode.util.ExerciseNotCompletedException;
  * @author Serhii Hryhus
  */
 public class ArrayList<T> implements List<T> {
+    private int size;
 
     /**
      * This constructor creates an instance of {@link ArrayList} with a specific capacity of an array inside.
@@ -155,5 +156,10 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void clear() {
         throw new ExerciseNotCompletedException(); // todo: implement this method
+    }
+
+    @Override
+    public void reverse() {
+
     }
 }
