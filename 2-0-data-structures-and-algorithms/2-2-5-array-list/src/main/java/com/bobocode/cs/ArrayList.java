@@ -1,10 +1,7 @@
 package com.bobocode.cs;
 
-import com.bobocode.util.ExerciseNotCompletedException;
-
 import java.util.Arrays;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 import static java.util.Objects.checkIndex;
 import static java.util.Objects.requireNonNull;
