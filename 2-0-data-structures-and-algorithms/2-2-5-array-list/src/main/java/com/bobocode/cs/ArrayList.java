@@ -26,7 +26,7 @@ public class ArrayList<T> implements List<T> {
      * @throws IllegalArgumentException – if the specified initial capacity is negative or 0.
      */
     public ArrayList(int initCapacity) {
-        if(initCapacity <= 0){
+        if (initCapacity <= 0) {
             throw new IllegalArgumentException();
         }
         this.internalArray = new Object[initCapacity];
@@ -99,7 +99,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T get(int index) {
         checkIndex(index, size);
-        return (T)internalArray[index];
+        return (T) internalArray[index];
     }
 
     /**
@@ -110,7 +110,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T getFirst() {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
         return get(0);
@@ -124,7 +124,7 @@ public class ArrayList<T> implements List<T> {
      */
     @Override
     public T getLast() {
-        if(isEmpty()){
+        if (isEmpty()) {
             throw new NoSuchElementException();
         }
         return get(size - 1);
@@ -155,7 +155,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public T remove(int index) {
         checkIndex(index, size);
-        var element = (T)internalArray[index];
+        var element = (T) internalArray[index];
         System.arraycopy(internalArray, index + 1,
                 internalArray, index, internalArray.length - index - 1);
         size--;
@@ -203,6 +203,11 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public void reverse() {
-
+        int length = internalArray.length;
+        for (int i = 0; i < length / 2; i++) {
+            var buffer = internalArray[i];
+            internalArray[i] = internalArray[length - i - 1];
+            internalArray[length - i - 1] = buffer;
+        }
     }
 }

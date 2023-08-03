@@ -361,6 +361,21 @@ class ArrayListTest {
                 .isThrownBy(() -> arrayList.get(0));
     }
 
+    @Test
+    @Order(37)
+    void shouldReverseArray() {
+        fillTestArray(1, 2, 3, 4, 5);
+        Object[] internalArray = getTestArray();
+
+        arrayList.reverse();
+        assertThat(internalArray[0]).isEqualTo(5);
+        assertThat(internalArray[1]).isEqualTo(4);
+        assertThat(internalArray[2]).isEqualTo(3);
+        assertThat(internalArray[3]).isEqualTo(2);
+        assertThat(internalArray[4]).isEqualTo(1);
+        assertThat(getTestSize()).isEqualTo(5);
+    }
+
     @SneakyThrows
     private void setTestSize(int size) {
         Field sizeField = arrayList.getClass().getDeclaredField("size");
